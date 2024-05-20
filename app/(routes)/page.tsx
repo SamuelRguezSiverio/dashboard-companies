@@ -1,10 +1,10 @@
 import { UserButton } from '@clerk/nextjs'
 import CardSummary from './components/CardSummary/CardSummary'
 import { BookOpenCheck, UsersRound, Waypoints } from 'lucide-react'
-import LastCustomers from '@/components/LastCustomers/LastCustomers'
-import SalesDistributors from '@/components/SalesDistributors/SalesDistributors'
+import LastCustomers from './components/LastCustomers/LastCustomers'
+import SalesDistributors from './components/SalesDistributors/SalesDistributors'
 import TotalSuscribers from '@/components/TotalSuscribers/TotalSuscribers'
-import ListIntegrations from '@/components/ListIntegrations/ListIntegrations'
+import ListIntegrations from './components/ListIntegrations/ListIntegrations'
 
 export const dataCardsSummary = [
   {

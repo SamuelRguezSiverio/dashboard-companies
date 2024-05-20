@@ -28,7 +28,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { TableIntegrationsProps } from './TableIntegrations.types'
-import { Progress } from '../ui/progress'
+import { Progress } from '@/components/ui/progress'
 import { formatPrice } from '@/lib/formatPrice'
 
 const data: TableIntegrationsProps[] = [

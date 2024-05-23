@@ -18,6 +18,8 @@ import { Toast } from '@/components/ui/toast'
 
 import { CalendarProps } from './Calendar.types'
 import { ModalAddEvent } from '../ModalAddEvent'
+import { toast } from '@/components/ui/use-toast'
+import { SelectItem } from '@radix-ui/react-select'
 
 export function Calendar(props: CalendarProps) {
   const { companies, events } = props
@@ -38,8 +40,63 @@ export function Calendar(props: CalendarProps) {
     setSelectedItem(selected)
   }
 
-  const handleEventClick = () => {
-    console.log('Event')
+  useEffect(() => {
+    if (onSaveNewEvent && selectedItem?.view.calendar) {
+      const calendarApi = selectedItem.view.calendar
+      calendarApi.unselect()
+
+      const newEventPrisma = {
+        companyId: newEvent.companieSelected.id,
+        title: newEvent.eventName,
+        start: new Date(selectedItem.start),
+        allDay: false,
+        timeFormat: 'H(:mm)',
+      }
+
+      axios
+        .post(
+          `/api/company/${newEvent.companieSelected.id}/event`,
+          newEventPrisma
+        )
+        .then(() => {
+          toast({ title: 'Evento creado' })
+          router.refresh()
+        })
+        .catch((error) => {
+          toast({
+            title: 'Error al crear el evento',
+            variant: 'destructive',
+          })
+        })
+    }
+    setNewEvent({
+      eventName: '',
+      companieSelected: {
+        name: '',
+        id: '',
+      },
+    })
+    setOnSaveNewEvent(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onSaveNewEvent, selectedItem, event])
+
+  const handleEventClick = async (selected: any) => {
+    if (
+      window.confirm(
+        `Are you sure you want to delete this event ${selected.event.title} `
+      )
+    ) {
+      try {
+        await axios.delete(`/api/event/${selected.event._def.publicId}`)
+        toast({ title: 'Event deleted' })
+        router.refresh()
+      } catch (error) {
+        toast({
+          title: 'Something went wrong',
+          variant: 'destructive',
+        })
+      }
+    }
   }
 
   return (

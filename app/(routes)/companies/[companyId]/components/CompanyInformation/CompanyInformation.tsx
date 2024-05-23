@@ -3,11 +3,12 @@ import { CompanyInformationProps } from './CompanyInformation.types'
 import { User } from 'lucide-react'
 import { CompanyForm } from '../CompanyForm'
 import { NewContact } from '../NewContact'
+import { ListContacts } from '../ListContacts'
 
 export function CompanyInformation(props: CompanyInformationProps) {
   const { company } = props
   return (
-    <div className="grid grid-cols-1 lg:grid-cols2 lg:gap-x-10 gap-y-4" >
+    <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10 gap-y-4" >
       <div className="rounded-lg bg-background shadow-md hover:shadow-lg p-4">
         <div>
           <Image
@@ -28,7 +29,7 @@ export function CompanyInformation(props: CompanyInformationProps) {
           </div>
       <NewContact/>
         </div>
-        <p>List Contacts...</p>
+        <ListContacts company={company}/>
       </div>
     </div>
   )

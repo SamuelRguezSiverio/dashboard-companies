@@ -50,7 +50,17 @@ export function CompanyForm(props: CompanyFormProps) {
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log('onSubmit')
+    try {
+      await axios.patch(`/api/company/${company.id}`, values)
+      toast({
+        title: 'Company updated!',
+      })
+    } catch (error) {
+      toast({
+        title: 'Something went wrong',
+        variant: 'destructive',
+      })
+    }
   }
   return (
     <Form {...form}>

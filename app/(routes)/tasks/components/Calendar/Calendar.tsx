@@ -17,6 +17,7 @@ import { formatDate } from '@/lib/formatDate'
 import { Toast } from '@/components/ui/toast'
 
 import { CalendarProps } from './Calendar.types'
+import { ModalAddEvent } from '../ModalAddEvent'
 
 export function Calendar(props: CalendarProps) {
   const { companies, events } = props
@@ -46,6 +47,7 @@ export function Calendar(props: CalendarProps) {
       <div className="md:flex gap-x-3">
         <div className="w-[200px] relative">
           <div className="overflow-auto absolute left-0 top-0 h-full w-full">
+            <p className="text-xl mb-3">Listado de tareas</p>
             {events.map((currentEvent) => (
               <div
                 key={currentEvent.id}
@@ -67,6 +69,12 @@ export function Calendar(props: CalendarProps) {
               listPlugin,
               multiMonthPlugin,
             ]}
+            headerToolbar={{
+              left: 'prev,next today',
+              center: 'title',
+              right:
+                'timeGridDay,timeGridWeek,dayGridMonth,multiMonthYear,listMonth',
+            }}
             height="80vh"
             initialView="dayGridMonth"
             weekends={false}
@@ -80,6 +88,13 @@ export function Calendar(props: CalendarProps) {
           />
         </div>
       </div>
+      <ModalAddEvent
+        open={open}
+        setOpen={setOpen}
+        setOnSaveNewEvent={setOnSaveNewEvent}
+        companies={companies}
+        setNewEvent={setNewEvent}
+      />
     </div>
   )
 }

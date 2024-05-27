@@ -35,7 +35,7 @@ export const dataToolsSidebar = [
     {
        icon: BarChart4,
       label: "Analytics",
-      href: "/analitics"
+      href: "/analytics"
     }
 ]
 
